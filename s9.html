@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="contactApp">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contact Us</title>
+
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f5f5f5;
+      margin: 0;
+      padding: 0;
+    }
+    .contact-container {
+      max-width: 600px;
+      margin: 20px auto;
+      padding: 20px;
+      background-color: #ffffff;
+      border-radius: 10px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+    .contact-info {
+      margin-bottom: 20px;
+    }
+    .contact-form label {
+      font-weight: bold;
+      display: block;
+      margin-bottom: 5px;
+    }
+    .contact-form input,
+    .contact-form textarea {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 10px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+    .contact-form textarea {
+      resize: vertical;
+    }
+    .contact-form button {
+      background-color: #66b3ff;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    .error-message {
+      color: red;
+    }
+  </style>
+</head>
+<body ng-controller="ContactController">
+  <div class="contact-container">
+    <h2>Contact Us</h2>
+    <div class="contact-info">
+      <p>If you have any questions or need assistance, please feel free to reach out to us.</p>
+      <p><strong>Email:</strong> support@railwayreservations.com</p>
+      <p><strong>Phone:</strong> 1-800-123-4567</p>
+      <p><strong>Address:</strong> 123 Railway Avenue, Cityville</p>
+    </div>
+    <div class="contact-form">
+      <h3>Send us a message</h3>
+      <form id="contact-form" ng-submit="submitForm()" action="s10.php">
+        <label for="name">Your Name</label>
+        <input type="text" id="name" name="name" ng-model="formData.name" placeholder="Enter your name" required>
+
+        <label for="email">Your Email</label>
+        <input type="email" id="email" name="email" ng-model="formData.email" placeholder="Enter your email" required>
+        <div class="error-message" ng-show="emailError">{{ emailError }}</div>
+
+        <label for="subject">Subject</label>
+        <input type="text" id="subject" name="subject" ng-model="formData.subject" placeholder="Enter the subject" required>
+
+        <label for="message">Message</label>
+        <textarea id="message" name="message" ng-model="formData.message" rows="4" placeholder="Enter your message" required></textarea>
+
+        <div class="error-message" ng-show="validationError">{{ validationError }}</div>
+
+        <button type="submit">Send Message</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Include AngularJS script -->
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+  <script>
+    angular.module('contactApp', [])
+      .controller('ContactController', function ($scope, $http) {
+        $scope.formData = {};
+        $scope.emailError = '';
+        $scope.validationError = '';
+
+        $scope.submitForm = function () {
+          // Client-side email validation
+          if (!$scope.isValidEmail($scope.formData.email)) {
+            $scope.emailError = 'Please enter a valid email address.';
+            return;
+          }
+
+          // Clear previous errors
+          $scope.emailError = '';
+          $scope.validationError = '';
+
+          // Submit the form data to the server using $http
+          $http.post('submit_form.php', $scope.formData)
+            .then(function (response) {
+              // Handle the server response (success or error)
+              if (response.data.success) {
+                alert('Form submitted successfully!');
+              } else {
+                $scope.validationError = response.data.message;
+              }
+            }, function (error) {
+              console.error('Error submitting form:', error);
+              $scope.validationError = 'An error occurred while processing your request. Please try again later.';
+            });
+        };
+
+        // Function to validate email format
+        $scope.isValidEmail = function (email) {
+          return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+        };
+      });
+  </script>
+</body>
+</html>

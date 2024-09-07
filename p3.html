@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html ng-app="railwaysApp">
+
+<head>
+    <title>Welcome to Indian Railways</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Arial', sans-serif;
+        }
+
+        span {
+            display: inline-flex;
+            align-items: center;
+            gap: 380px;
+            padding: 0 0 0 20px;
+            margin: 0 0 0 0;
+        }
+
+        span img {
+            max-width: 47px;
+        }
+
+        span1 img {
+            max-width: 20px;
+        }
+
+        .box {
+            float: 50%;
+            width: 380px;
+            height: 360px;
+            border: 1px solid black;
+            padding: 20px;
+            margin: 38px 0 0 60px;
+            background-color: #f0f0f0;
+            background-color: white;
+            text-align: center;
+        }
+
+        .background-image {
+            position: fixed;
+            top: 12%;
+            bottom: 8%;
+            left: 0;
+            right: 0;
+            background-image: url("C:/Users/tumma/Pictures/VandeBhart.jpg");
+            background-repeat: no-repeat;
+            background-size: cover;
+            background-position: center;
+        }
+
+        input[type="text"] {
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 14px;
+            margin: 20px;
+        }
+
+        input[type="submit"] {
+            padding: 10px;
+            margin: 10px;
+            border-radius: 10px;
+            border-color: "white";
+        }
+
+        input[type="date"] {
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 14px;
+            margin: 20px;
+            width: 200px;
+        }
+
+        select {
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 14px;
+            margin: 20px;
+            width: 220px;
+            background-color: white;
+            color: #555;
+            cursor: pointer;
+        }
+
+        select::after {
+            content: '\25BC';
+            position: absolute;
+            top: 50%;
+            right: 10px;
+            transform: translateY(-50%);
+            pointer-events: none;
+        }
+        .error-message {
+            color: red;
+        }
+    </style>
+</head>
+
+<body ng-controller="railwaysController">
+
+    <span>
+        <img src="https://www.irctc.co.in/nget/assets/images/secondry-logo.png">
+        <h2>TRAIN AVAILABILITY</h2>
+        <img src="https://www.irctc.co.in/nget/assets/images/logo.png">
+    </span>
+
+    <div class="background-image">
+        <div class="box">
+            <div class="input">
+                <center>
+                    <h2>JOURNEY DETAILS</h2>
+                </center>
+                <form ng-submit="getTrainChart()" action="p33.php">
+
+                    <select ng-model="trainDetails.boardingStation" ng-options="station for station in boardingStations"
+                        ng-change="checkStations()" required>
+                        <option value="" disabled selected>Select Boarding Station</option>
+                    </select>
+                    <div ng-show="formSubmitted && myForm.boardingStation.$error.required">
+                        Boarding Station is required.
+                    </div>
+
+                    <select ng-model="trainDetails.departureStation" ng-options="station for station in departureStations"
+                        ng-change="checkStations()" required>
+                        <option value="" disabled selected>Select Departure Station</option>
+                    </select>
+                    <div ng-show="formSubmitted && myForm.departureStation.$error.required">
+                        Departure Station is required.
+                    </div>
+                    <div ng-show="stationError">
+                        <span class="error-message">Boarding and departue Station should not be the same.</span>
+                    </div>
+                    <br>
+                    <input type="submit" value="GET TRAIN CHART" style="background-color:#2a52a2; color:white">
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+    <script>
+        var app = angular.module('railwaysApp', []);
+
+        app.controller('railwaysController', function ($scope, $http, $window) {
+            $scope.trainDetails = {};
+            $scope.formSubmitted = false;
+            $scope.chartData = null;
+            $scope.stationError = false;
+
+            $scope.boardingStations = ["Visakhapatnam", "Vijayanagaram", "Guntur", "Repalle", "Tenali", "Rajamundry"];
+            $scope.departureStations = ["Visakhapatnam", "Vijayanagaram", "Guntur", "Repalle", "Tenali", "Rajamundry"];
+
+            $scope.checkStations = function () {
+                $scope.stationError = $scope.trainDetails.boardingStation === $scope.trainDetails.departureStation;
+            };
+
+            $scope.getTrainChart = function () {
+                $scope.formSubmitted = true;
+
+                if ($scope.myForm.$invalid || $scope.stationError) {
+                    return;
+                }
+            };
+        });
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="registrationApp">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Registration</title>
+    <link rel="stylesheet" href="styles.css"> 
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+    <style>
+        .registration-form {
+            max-width: 400px;
+            margin: 0 auto;
+            padding: 2rem;
+            background-color: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .registration-form h1 {
+            color: #02243a;
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .registration-form form {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .registration-form input {
+            padding: 1rem;
+            border: none;
+            border-radius: 5px;
+            font-size: 1rem;
+            background-color: #f8f8f8;
+            color: #333;
+            transition: background-color 0.3s ease;
+        }
+
+        .registration-form input::placeholder {
+            color: #aaa;
+        }
+
+        .registration-form input:focus {
+            background-color: #e0e0e0;
+            outline: none;
+        }
+
+        .registration-form button {
+            padding: 1rem 2rem;
+            background-color: #08456d;
+            color: #ffffff;
+            border: none;
+            border-radius: 5px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .registration-form button:hover {
+            background-color: #2980b9;
+        }
+
+        .registration-form p {
+            margin-top: 1.5rem;
+            font-size: 0.9rem;
+            color: #666;
+        }
+
+        .error-message {
+            color: red;
+            margin-top: 0.5rem;
+        }
+    </style>
+</head>
+<body ng-controller="registrationController">
+
+    <div class="registration-form">
+        <h1>Register</h1>
+        <form name="registrationForm" id="registration-form" method="POST" ng-submit="submitForm() ction="s8.php">
+            <input type="text" name="username" placeholder="Username" id="username" ng-model="user.username" ng-pattern="/^(?=.*[A-Z])(?=.*\d)[A-Za-z\d]+$/"
+                required>
+            <div class="error-message" ng-show="registrationForm.username.$error.pattern">
+                Username should contain at least one capital letter and one number.
+            </div>
+
+            <input type="email" name="email" placeholder="Email" id="email" ng-model="user.email" ng-pattern="/^[^\s@]+@[^\s@]+\.[^\s@]+$/"
+                required>
+            <div class="error-message" ng-show="registrationForm.email.$error.pattern">
+                Please enter a valid email address.
+            </div>
+
+            <input type="password" name="password" placeholder="Password" id="password" ng-model="user.password"
+                ng-pattern="/^(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+])[A-Za-z\d!@#$%^&*()_+]+$/"
+                required>
+            <div class="error-message" ng-show="registrationForm.password.$error.pattern">
+                Password should contain at least one capital letter, one number, and one special character.
+            </div>
+
+            <button type="submit">Sign Up</button>
+        </form>
+        <p>Already have an account? <a href="r9.html">Log in</a></p>
+    </div>
+
+    <script>
+        var app = angular.module('registrationApp', []);
+
+        app.controller('registrationController', function ($scope) {
+            $scope.init = function () {
+                $scope.user = {};
+            };
+
+            $scope.submitForm = function () {
+                // Handle form submission if needed
+                // Access form data using $scope.user.username, $scope.user.email, $scope.user.password
+                // Perform additional actions or submit the form to the server
+            };
+
+            // Initialize patterns on controller load
+            $scope.init();
+        });
+    </script>
+
+</body>
+</html>
+</body>
+</html>

@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="seatSelectionApp">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Seat Selection</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f5f5f5;
+      background-image: url("C:/Users/tumma/Pictures/p.jpeg");
+      background-repeat: no-repeat;
+      background-size: cover;
+      background-position: center;  
+    }
+
+    .seat-map {
+      max-width: 350px;
+      margin: 20px auto;
+      padding: 20px;
+      background-color: #ffffff;
+      border-radius: 10px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+
+    .seat-row {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 15px;
+    }
+
+    .seat {
+      width: 40px;
+      height: 40px;
+      background-color: #e0e0e0;
+      margin: 0 5px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    .seat.available {
+      background-color: #b3e0b3;
+    }
+
+    .seat.selected {
+      background-color: #5cb85c;
+      color: #ffffff;
+    }
+
+    .seat.unavailable {
+      background-color: #d9d9d9;
+      cursor: not-allowed;
+     background-color:red;
+    }
+
+    input[type="submit"] {
+      padding: 10px;
+      margin: 10px;
+      border-radius: 10px;
+      background-color: #66b3ff;
+      color: white;
+    }
+  </style>
+</head>
+<body ng-controller="SeatSelectionController">
+
+  <center><h2> Select Your Seats</h2></center>
+  <div class="seat-map">
+    <div class="seat-row">
+      <div class="seat unavailable">1</div>
+      <div class="seat available">2</div>
+      <div class="seat available">3</div>
+      <div class="seat available">4</div>
+      <div class="seat unavailable">5</div>
+    </div>
+    <div class="seat-row">
+      <div class="seat available">6</div>
+      <div class="seat available">7</div>
+      <div class="seat unavailable">8</div>
+      <div class="seat available">9</div>
+      <div class="seat available">10</div>
+    </div>
+    <div class="seat-row">
+      <div class="seat available">11</div>
+      <div class="seat available">12</div>
+      <div class="seat available">13</div>
+      <div class="seat available">14</div>
+      <div class="seat available">15</div>
+    </div>
+    <div class="seat-row">
+      <div class="seat available">16</div>
+      <div class="seat available">17</div>
+      <div class="seat available">18</div>
+      <div class="seat available">19</div>
+      <div class="seat available">20</div>
+    </div>
+    <div class="seat-row">
+      <div class="seat available">21</div>
+      <div class="seat unavailable">22</div>
+      <div class="seat available">23</div>
+      <div class="seat available">24</div>
+      <div class="seat available">25</div>
+    </div>
+    <div class="seat-row">
+      <div class="seat unavailable">26</div>
+      <div class="seat available">27</div>
+      <div class="seat available">28</div>
+      <div class="seat available">29</div>
+      <div class="seat available">30</div>
+    </div>
+    <div class="seat-row">
+      <div class="seat available">31</div>
+      <div class="seat available">32</div>
+      <div class="seat available">33</div>
+      <div class="seat available">34</div>
+      <div class="seat available">35</div>
+    </div>
+    <div class="seat-row">
+      <div class="seat available">36</div>
+      <div class="seat available">37</div>
+      <div class="seat available">38</div>
+      <div class="seat available">39</div>
+      <div class="seat unavailable">40</div>
+    </div>
+  </div>
+  <center><a href="#" ng-click="proceedToPay()" ng-disabled="noSeatSelected"><input type="submit" value="Proceed to pay"></a></center>
+
+  <!-- Include AngularJS script -->
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+  <script>
+    angular.module('seatSelectionApp', [])
+      .controller('SeatSelectionController', function ($scope) {
+        const seats = document.querySelectorAll('.seat');
+        $scope.noSeatSelected = true;
+
+        function checkSeatSelection() {
+          const selectedSeats = document.querySelectorAll('.seat.selected');
+          $scope.noSeatSelected = selectedSeats.length === 0;
+        }
+
+        seats.forEach(seat => {
+          seat.addEventListener('click', () => {
+            if (!seat.classList.contains('unavailable')) {
+              seat.classList.toggle('selected');
+              checkSeatSelection();
+            }
+          });
+        });
+
+        $scope.proceedToPay = function () {
+          if (!$scope.noSeatSelected) {
+            window.location.href = "p2.html";
+          } else {
+            alert("Please select at least one seat.");
+          }
+        };
+      });
+  </script>
+</body>
+</html>

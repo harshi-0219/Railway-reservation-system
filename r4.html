@@ -1,0 +1,85 @@
+<html>
+<head>
+<title>Welcome to Indian Railways</title>
+<style>
+
+span {
+  display: inline-flex; /* Display as inline flex container */
+  align-items: center; /* Align items vertically within the span */
+  gap: 240px; /* Add some space between image and text */
+ padding:0 0 0 20px;
+ margin:0 0 0 0;
+}
+
+span img {
+  max-width: 47px; /* Adjust image width as needed */
+}
+
+.box {
+float: 50%;
+    width: 380px;
+    height: 300px;
+    border: 1px solid black;
+    padding: 20px;
+    margin:38px 0 0 60px;
+    background-color: #f0f0f0;
+    background-color:white;
+text-align:center;
+  }
+
+input[type="text"]{
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 14px;
+  margin: 20px;
+}
+
+input[type="submit"]
+{
+padding:10px;
+margin:10px;
+ border-radius: 10px;
+ border-color: "white";
+}
+
+.background-image
+{
+   position: fixed;
+  top: 12%; /* Adjust to control how much of the top is covered by the background */
+  bottom: 8%; /* Adjust to control how much of the bottom is covered by the background */
+  left: 0;
+  right: 0;
+background-image:url("C:/Users/tumma/Pictures/th (5).jpeg");
+ background-repeat:no-repeat;
+background-size: cover;
+    background-position: center; 
+  z-index: -1; 
+}
+
+
+</style>
+</head>
+<body>
+<span>
+<img src="https://www.irctc.co.in/nget/assets/images/secondry-logo.png">
+<h2>INDIAN RAILWAYS PASSENGER RESERVATION ENQUIRY</h2>
+<img src="https://www.irctc.co.in/nget/assets/images/logo.png">
+</span>
+
+<marquee>Please help Indian railways and government of India in moving towards a digitized and cashless economy. Eradicate black money.</marquee>
+
+<center><h2 style=" background-color:#66b3ff; width:50%">Passenger Current Status Enquiry</h2></center>
+<center>
+<div class="box">
+<h3>Enter the PNR for your booking below to get the current status. You will find it on the top left corner of the ticket.</h3><br>
+Enter PNR No <input type="text" placeholder="PNR No*">
+<br>
+
+<input type="submit" value="SUBMIT" style="background-color:#2a52a2; color:white">
+<input type="submit" value="CLEAR" style="background-color:#2a52a2; color:white">
+</div>
+</div>
+</center>
+</body>
+</html>
